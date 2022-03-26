@@ -1,6 +1,6 @@
 import React from 'react'
 
-export function ProductCard({id,catagoryName, title,price, inStock, isFavourite, prodImg, rating }) {
+function ProductCard({id,catagoryName, title,price, inStock, isFavourite, prodImg, rating }) {
   return (
     <div key={id}>
          <div className="card-v">
@@ -38,3 +38,4 @@ export function ProductCard({id,catagoryName, title,price, inStock, isFavourite,
       prodImg:"https://cdn.shopify.com/s/files/1/0410/0250/0260/products/F10003_1_720x720.jpg?v=1641215829",
       rating:4
   }
+export {ProductCard}
