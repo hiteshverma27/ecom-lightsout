@@ -1,4 +1,4 @@
-export const productReducer = (state, { type, payload }) => {
+const filterReducer = (state, { type, payload }) => {
   switch (type) {
     case "CATEGORY_NAME":
       return {
@@ -16,3 +16,5 @@ export const productReducer = (state, { type, payload }) => {
       return {...state}
   }
 };
+
+export {filterReducer}

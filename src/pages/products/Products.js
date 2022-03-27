@@ -1,30 +1,33 @@
-import React, { useReducer } from "react";
+import React from "react";
 import { products } from "../../backend/db/products";
-import { productReducer } from "../../reducer/productReducer";
+// import { filterReducer } from "../../reducer/filterReducer";
 import { filterByCategory, filterByPrice, filterByRating, sortBy } from "../../utils/filterUtils";
 import { FiltersPanel, ProductCard } from "../../components";
+import { useFilter } from "../../contexts/filterContext";
 
 
+//made context but didnt link to anything else
 
-const initialFilters = {
-  catagoryName: {
-    poster: false,
-    flag: false,
-    scaleModel: false,
-    wearable: false,
-  },
-  rating:"",
-  inputPrice:10000,
-  inputRating:1,
-  inputSort:""
-};
+// const initialFilters = {
+//   catagoryName: {
+//     poster: false,
+//     flag: false,
+//     scaleModel: false,
+//     wearable: false,
+//   },
+//   rating:"",
+//   inputPrice:10000,
+//   inputRating:1,
+//   inputSort:""
+// };
 
 function Products() {
-  const [state, dispatch] = useReducer(productReducer, initialFilters);
-  const filteredByCatagory = filterByCategory(products, state.catagoryName);
-  const filteredByRating = filterByRating(filteredByCatagory, state.inputRating);
-  const filteredByPrice = filterByPrice(filteredByRating, state.inputPrice)
-  const sortedBy = sortBy(filteredByPrice, state.inputSort)
+  const {filterState, filterDispatch} = useFilter()
+  // const [filterState, filterDispatch] = useReducer(filterReducer, initialFilters);
+  const filteredByCatagory = filterByCategory(products, filterState.catagoryName);
+  const filteredByRating = filterByRating(filteredByCatagory, filterState.inputRating);
+  const filteredByPrice = filterByPrice(filteredByRating, filterState.inputPrice)
+  const sortedBy = sortBy(filteredByPrice, filterState.inputSort)
   
 
   return (
@@ -34,32 +37,32 @@ function Products() {
         <label>
           <input
             type="checkbox"
-            checked={state.catagoryName.poster}
-            onChange={() => dispatch({ type: "CATEGORY_NAME", payload: "poster" })}
+            checked={filterState.catagoryName.poster}
+            onChange={() => filterDispatch({ type: "CATEGORY_NAME", payload: "poster" })}
           />
           Poster
         </label>
         <label>
           <input
             type="checkbox"
-            checked={state.catagoryName.flag}
-            onChange={() => dispatch({ type: "CATEGORY_NAME", payload: "flag" })}
+            checked={filterState.catagoryName.flag}
+            onChange={() => filterDispatch({ type: "CATEGORY_NAME", payload: "flag" })}
           />
           Flag
         </label>
         <label>
           <input
             type="checkbox"
-            checked={state.catagoryName.scaleModel}
-            onChange={() => dispatch({ type: "CATEGORY_NAME", payload:  "scaleModel"})}
+            checked={filterState.catagoryName.scaleModel}
+            onChange={() => filterDispatch({ type: "CATEGORY_NAME", payload:  "scaleModel"})}
           />
           Scale Model
         </label>
         <label>
           <input
             type="checkbox"
-            checked={state.catagoryName.wearable}
-            onChange={() => dispatch({ type: "CATEGORY_NAME", payload: "wearable" })}
+            checked={filterState.catagoryName.wearable}
+            onChange={() => filterDispatch({ type: "CATEGORY_NAME", payload: "wearable" })}
           />
           Wearable
         </label>
@@ -70,7 +73,7 @@ function Products() {
               id="rating-opt-1"
               name="option1"
               value={4}
-              onChange={(e) => dispatch({type:"INPUT_RATING" , payload: Number(e.target.value) })}
+              onChange={(e) => filterDispatch({type:"INPUT_RATING" , payload: Number(e.target.value) })}
             />
             4 stars and above
           </label>
@@ -81,7 +84,7 @@ function Products() {
               id="rating-opt-2"
               name="option1"
               value={3}
-              onChange={(e) => dispatch({type:"INPUT_RATING" , payload: Number(e.target.value) })}
+              onChange={(e) => filterDispatch({type:"INPUT_RATING" , payload: Number(e.target.value) })}
             />
             3 stars and above
           </label>
@@ -92,7 +95,7 @@ function Products() {
               id="rating-opt-3"
               name="option1"
               value={2}
-              onChange={(e) => dispatch({type:"INPUT_RATING" , payload: Number(e.target.value) })}
+              onChange={(e) => filterDispatch({type:"INPUT_RATING" , payload: Number(e.target.value) })}
             />
             2 stars and above
           </label>
@@ -103,7 +106,7 @@ function Products() {
               id="rating-opt-4"
               name="option1"
               value={1}
-              onChange={(e) => dispatch({type:"INPUT_RATING" , payload: Number(e.target.value) })}
+              onChange={(e) => filterDispatch({type:"INPUT_RATING" , payload: Number(e.target.value) })}
             />
             1 stars and above
           </label>
@@ -114,7 +117,7 @@ function Products() {
             <input
               type="radio"
               name="option2"
-              onChange={() => dispatch({type:"INPUT_SORT", payload:"HIGH_TO_LOW"})}
+              onChange={() => filterDispatch({type:"INPUT_SORT", payload:"HIGH_TO_LOW"})}
             />
             High to low
           </label>
@@ -123,14 +126,14 @@ function Products() {
             <input
               type="radio"
               name="option2"
-              onChange={() => dispatch({type:"INPUT_SORT", payload:"LOW_TO_HIGH"})}
+              onChange={() => filterDispatch({type:"INPUT_SORT", payload:"LOW_TO_HIGH"})}
             />
             Low to high
           </label>
           <br />
         </form>
-        <h1>{state.inputPrice}</h1>
-        <input className="my-2 w-100per" type="range" min="0" max="10000" value={state.inputPrice} onChange={(e)=>dispatch({type:"INPUT_PRICE", payload: Number(e.target.value)})}/>
+        <h1>{filterState.inputPrice}</h1>
+        <input className="my-2 w-100per" type="range" min="0" max="10000" value={filterState.inputPrice} onChange={(e)=>filterDispatch({type:"INPUT_PRICE", payload: Number(e.target.value)})}/>
         {sortedBy.map(
           ({
             _id,
