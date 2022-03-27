@@ -1,3 +1,4 @@
+
 const filterReducer = (state, { type, payload }) => {
   switch (type) {
     case "CATEGORY_NAME":
@@ -12,6 +13,19 @@ const filterReducer = (state, { type, payload }) => {
       return {...state, inputRating: payload }
     case "INPUT_SORT":
       return {...state, inputSort: payload}
+    case "CLEAR_ALL":
+      return {
+        catagoryName: {
+          poster: false,
+          flag: false,
+          scaleModel: false,
+          wearable: false,
+        },
+        rating:"",
+        inputPrice:10000,
+        inputRating:1,
+        inputSort:""
+      };
     default:
       return {...state}
   }
