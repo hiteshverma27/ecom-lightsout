@@ -1,6 +1,18 @@
 import React from 'react'
+import { categories } from '../../backend/db/categories';
+import { accountLinks } from '../../backend/db/accountLinks';
+import { contactUs } from '../../backend/db/contactUs';
 
- function Footer() {
+function FooterLink({title, _id}) {
+  return <li className="my-1" key={_id}><a href="https://github.com/">{title}</a></li>;
+}
+function AccountLink({title, _id}) {
+  return <li className="my-1" key={_id}><a href="https://github.com/">{title}</a></li>;
+}
+function ContactUs({title, value, _id}) {
+  return <li className="my-1" key={_id}><strong>{title}:</strong> {value} </li>;
+}
+function Footer() {
     return <footer className="w-100vw pb-2">
       <div className="mx-5 flex flex-wrap flex-space_between-center">
         <div className="mb-auto my-5">
@@ -26,34 +38,29 @@ import React from 'react'
           <h2>Catagory</h2>
           <hr className="my-2 hr-color-accent" />
           <ul className="font-size-large font-color-grey">
-            <li className="my-1"><a href="https://github.com/">Posters</a></li>
-            <li className="my-1"><a href="https://github.com/">Scale Models</a></li>
-            <li className="my-1"><a href="https://github.com/">Flags</a></li>
-            <li className="my-1"><a href="https://github.com/">Garments</a></li>
+            {categories.map(({categoryName, link, _id})=><FooterLink title={categoryName} link={link} key={_id}/>)}
           </ul>
         </div>
         <div className="mb-auto my-5">
           <h2>Account</h2>
           <hr className="my-2 hr-color-accent" />
           <ul className="font-size-large font-color-grey">
-            <li className="my-1"><a href="https://github.com/">My Account</a></li>
-            <li className="my-1"><a href="https://github.com/">Wishlist</a></li>
-            <li className="my-1"><a href="https://github.com/">Track order</a></li>
-            <li className="my-1"><a href="https://github.com/">View Cart</a></li>
-            <li className="my-1"><a href="https://github.com/">Priacy Policy</a></li>
+            {accountLinks.map(({title, _id})=><AccountLink title={title} key={_id}/>)}
           </ul>
         </div>
         <div className="mb-auto my-5 pr-3">
           <h2>Contact</h2>
           <hr className="my-2 hr-color-accent" />
           <ul className="font-size-large font-color-grey">
-            <li className="my-1"><strong>Location:</strong> India </li>
-            <li className="my-1"><strong>Call:</strong> +91-9090909090 </li>
-            <li className="my-1"><strong>Email:</strong> support @lightsout.com </li>
+
+            {contactUs.map(({title, value, _id})=><ContactUs title={title} value={value} key={_id}/>)}
           </ul>
         </div>
       </div>
     </footer>;
+
+
   }
 
   export {Footer}
+
