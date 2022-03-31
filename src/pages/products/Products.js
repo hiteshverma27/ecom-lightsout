@@ -16,7 +16,6 @@ function Products() {
       await axios
         .get("/api/products")
         .then((response) => {
-          console.log(response.data.products);
           filterDispatch({
             type: "INITIAL_PRODUCTS",
             payload: response.data.products,
@@ -27,7 +26,7 @@ function Products() {
         });
     };
     getData();
-  }, []);
+  }, [filterDispatch]);
   const filteredByCatagory = filterByCategory(
     filterState.products,
     filterState.catagoryName

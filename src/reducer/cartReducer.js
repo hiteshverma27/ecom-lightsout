@@ -24,6 +24,8 @@ const cartReducer = (state, { type, payload }) => {
             )
           : [...state.cartItems, { ...payload, qty: 1 }],
       };
+    default:
+      return { ...state };
   }
 };
 

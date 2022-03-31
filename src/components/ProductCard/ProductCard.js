@@ -3,16 +3,8 @@ import { useCart } from "../../contexts";
 
 function ProductCard({ item }) {
   const { cartDispatch } = useCart();
-  const {
-    _id,
-    catagoryName,
-    title,
-    price,
-    inStock,
-    isFavourite,
-    prodImg,
-    rating,
-  } = item;
+  const { _id, catagoryName, title, price, inStock, isFavourite, rating } =
+    item;
   return (
     <div key={_id}>
       <div className="card-v">
