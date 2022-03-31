@@ -1,15 +1,17 @@
 import "./App.css";
-import { Footer } from "./components/Footer/Footer";
-import { Navigation } from "./components/Navigation/Navigation";
-// import { Home } from "./pages/Home/Home";
-import { Products } from "./pages/products/Products";
+import { Footer, Navigation } from "./components";
+import { Cart, Home, Products } from "./pages";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <>
       <Navigation/>
-      {/* <Home/> */}
-      <Products/>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="products" element={<Products />} />
+        <Route path="cart" element={<Cart />} />
+      </Routes>
       <Footer/>
     </>
   );
