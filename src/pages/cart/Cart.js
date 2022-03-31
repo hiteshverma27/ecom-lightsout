@@ -4,37 +4,9 @@ import { CartProductCard, PriceDetailsCard } from "../../components";
 import { useCart } from "../../contexts";
 
 function Cart() {
-  const { cart, setCart } = useCart();
-  const removeFromCartHandler = (itemID) => {
-    setCart(cart.filter(({ _id }) => _id !== itemID._id));
-  };
-  const addToCartHandler = (item) => {
-    if (cart.some((obj) => obj._id === item._id)) {
-      setCart((itemsInCart) =>
-        itemsInCart.map((obj) =>
-          obj._id === item._id ? { ...obj, qty: obj.qty + 1 } : obj
-        )
-      );
-    } else {
-      setCart((itemsInCart) => [...itemsInCart, { ...item, qty: 1 }]);
-    }
-  };
-  const increaseQtyHandler = (item) => {
-    addToCartHandler(item);
-  };
-  const decreaseQtyHandler = (item) => {
-    if (cart.some((obj) => obj._id === item._id)) {
-      setCart((itemsInCart) =>
-        itemsInCart.map((obj) =>
-          obj._id === item._id ? { ...obj, qty: obj.qty - 1 } : obj
-        )
-      );
-    } else {
-      setCart((itemsInCart) => [...itemsInCart, { ...item, qty: 1 }]);
-    }
-  };
+  const { cart } = useCart();
   const totalPrice = cart.map((item) => item.price * item.qty);
-  const grandTotal = totalPrice.reduce((a, i) => a + i, 0);
+  const grandTotal = totalPrice.reduce((acc, init) => acc + init, 0);
 
   return (
     <div className="cart-manage-main w-80per m-auto p-5 flex">
@@ -42,15 +14,7 @@ function Cart() {
         <>
           <div className="flex-col">
             {cart.map((item) => {
-              return (
-                <CartProductCard
-                  key={item._id}
-                  item={item}
-                  removeFromCartHandler={removeFromCartHandler}
-                  increaseQtyHandler={increaseQtyHandler}
-                  decreaseQtyHandler={decreaseQtyHandler}
-                />
-              );
+              return <CartProductCard key={item._id} item={item} />;
             })}
           </div>
           <PriceDetailsCard noOfItems={cart.length} totalAmount={grandTotal} />

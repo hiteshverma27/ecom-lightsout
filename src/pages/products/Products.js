@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import axios from "axios";
 import { products } from "../../backend/db/products";
 import {
   filterByCategory,
@@ -10,10 +11,26 @@ import { FiltersPanel, ProductCard } from "../../components";
 import { useFilter, useCart } from "../../contexts";
 
 function Products() {
-  const { cart, setCart, cartState, cartDispatch } = useCart();
-  const { filterState } = useFilter();
+  const { filterState, filterDispatch } = useFilter();
+  useEffect(() => {
+    const getData = async () => {
+      await axios
+        .get("/api/products")
+        .then((response) => {
+          console.log(response.data.products);
+          filterDispatch({
+            type: "INITIAL_PRODUCTS",
+            payload: response.data.products,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    getData();
+  }, []);
   const filteredByCatagory = filterByCategory(
-    products,
+    filterState.products,
     filterState.catagoryName
   );
   const filteredByRating = filterByRating(
@@ -25,19 +42,6 @@ function Products() {
     filterState.inputPrice
   );
   const sortedBy = sortBy(filteredByPrice, filterState.inputSort);
-
-  //cart
-  const addToCartHandler = (item) => {
-    if (cart.some((obj) => obj._id === item._id)) {
-      setCart((itemsInCart) =>
-        itemsInCart.map((obj) =>
-          obj._id === item._id ? { ...obj, qty: obj.qty + 1 } : obj
-        )
-      );
-    } else {
-      setCart((itemsInCart) => [...itemsInCart, { ...item, qty: 1 }]);
-    }
-  };
 
   return (
     <>
@@ -52,13 +56,7 @@ function Products() {
         <FiltersPanel />
         <div className="main-content my-2" id="main-content-products">
           {sortedBy.map((item) => {
-            return (
-              <ProductCard
-                key={item._id}
-                item={item}
-                addToCartHandler={addToCartHandler}
-              />
-            );
+            return <ProductCard key={item._id} item={item} />;
           })}
         </div>
       </main>

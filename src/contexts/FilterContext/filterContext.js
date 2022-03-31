@@ -4,20 +4,24 @@ import { filterReducer } from "../../reducer/filterReducer";
 const FilterContext = createContext(null);
 
 const initialFilters = {
-    catagoryName: {
-      poster: false,
-      flag: false,
-      scaleModel: false,
-      wearable: false,
-    },
-    rating:"",
-    inputPrice:10000,
-    inputRating:1,
-    inputSort:""
-  };
+  catagoryName: {
+    poster: false,
+    flag: false,
+    scaleModel: false,
+    wearable: false,
+  },
+  rating: "",
+  inputPrice: 10000,
+  inputRating: 1,
+  inputSort: "",
+  products: [],
+};
 
 const FilterProvider = ({ children }) => {
-  const [filterState, filterDispatch] = useReducer(filterReducer, initialFilters);
+  const [filterState, filterDispatch] = useReducer(
+    filterReducer,
+    initialFilters
+  );
   return (
     <FilterContext.Provider value={{ filterState, filterDispatch }}>
       {children}

@@ -1,6 +1,8 @@
 import React from "react";
+import { useCart } from "../../contexts";
 
-function ProductCard({ item, addToCartHandler }) {
+function ProductCard({ item }) {
+  const { cartDispatch } = useCart();
   const {
     _id,
     catagoryName,
@@ -50,7 +52,7 @@ function ProductCard({ item, addToCartHandler }) {
         {inStock ? (
           <button
             className="btn-primary-confirm"
-            onClick={() => addToCartHandler(item)}
+            onClick={() => cartDispatch({ type: "ADD_TO_CART", payload: item })}
           >
             <span className="material-icons-outlined icon-s3">
               shopping_cart

@@ -1,10 +1,9 @@
-function CartProductCard({
-  item,
-  removeFromCartHandler,
-  increaseQtyHandler,
-  decreaseQtyHandler,
-}) {
+import { useCart } from "../../contexts";
+
+function CartProductCard({ item }) {
+  console.log(item);
   const { _id, catagoryName, title, price, qty } = item;
+  const { cartDispatch } = useCart();
   return (
     <div
       key={_id}
@@ -36,20 +35,24 @@ function CartProductCard({
                 ? "m-1 btn-secondary-grey font-size-x-large font-weight-400"
                 : "m-1 btn-primary-confirm font-size-x-large font-weight-400"
             }
-            onClick={() => decreaseQtyHandler(item)}
+            onClick={() =>
+              cartDispatch({ type: "DECREASE_QTY", payload: item })
+            }
           >
             -
           </button>
           <span className="font-size-s3">{qty}</span>
           <button
             className="m-1 btn-primary-confirm font-size-x-large font-weight-400"
-            onClick={() => increaseQtyHandler(item)}
+            onClick={() => cartDispatch({ type: "ADD_TO_CART", payload: item })}
           >
             +
           </button>
           <button
             className="ml-auto"
-            onClick={() => removeFromCartHandler(item)}
+            onClick={() =>
+              cartDispatch({ type: "REMOVE_FROM_CART", payload: item })
+            }
           >
             Remove
           </button>

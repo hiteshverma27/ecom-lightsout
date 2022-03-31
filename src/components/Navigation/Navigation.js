@@ -1,9 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useCart } from "../../contexts";
 
 function Navigation() {
   const { cart } = useCart();
+  const { pathname } = useLocation();
+  console.log(pathname);
   return (
     <nav
       className="w-100vw flex-space_between-center px-10 py-1 bg-white"
@@ -12,12 +14,12 @@ function Navigation() {
       <Link to={"/"}>
         <h2>LightsOut</h2>
       </Link>
-      <input
+      {/* <input
         type="search"
         className="input w-40per"
         placeholder="Search LightsOut"
         id="search-bar-nav"
-      />
+      /> */}
       <ul className="flex-space_between-center" id="nav-icons">
         <li className="mx-2">
           <a href="/Pages/login.html">
