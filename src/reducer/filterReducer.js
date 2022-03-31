@@ -1,18 +1,19 @@
-
 const filterReducer = (state, { type, payload }) => {
   switch (type) {
     case "CATEGORY_NAME":
       return {
-        ...state, catagoryName: {
-          ...state.catagoryName, [payload]: !state.catagoryName[payload]
-        }
+        ...state,
+        catagoryName: {
+          ...state.catagoryName,
+          [payload]: !state.catagoryName[payload],
+        },
       };
     case "INPUT_PRICE":
       return { ...state, inputPrice: payload };
     case "INPUT_RATING":
-      return {...state, inputRating: payload }
+      return { ...state, inputRating: payload };
     case "INPUT_SORT":
-      return {...state, inputSort: payload}
+      return { ...state, inputSort: payload };
     case "CLEAR_ALL":
       return {
         catagoryName: {
@@ -21,14 +22,19 @@ const filterReducer = (state, { type, payload }) => {
           scaleModel: false,
           wearable: false,
         },
-        rating:"",
-        inputPrice:10000,
-        inputRating:1,
-        inputSort:""
+        rating: "",
+        inputPrice: 10000,
+        inputRating: 1,
+        inputSort: "",
+      };
+    case "INITIAL_PRODUCTS":
+      return {
+        ...state,
+        products: payload,
       };
     default:
-      return {...state}
+      return { ...state };
   }
 };
 
-export {filterReducer}
+export { filterReducer };

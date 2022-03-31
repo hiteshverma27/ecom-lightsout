@@ -1,49 +1,64 @@
-import React from "react";
-import { products } from "../../backend/db/products";
-import { filterByCategory, filterByPrice, filterByRating, sortBy } from "../../utils/filterUtils";
+import React, { useEffect } from "react";
+import axios from "axios";
+import {
+  filterByCategory,
+  filterByPrice,
+  filterByRating,
+  sortBy,
+} from "../../utils";
 import { FiltersPanel, ProductCard } from "../../components";
-import { useFilter } from "../../contexts/filterContext";
-
+import { useFilter } from "../../contexts";
 
 function Products() {
-  const {filterState} = useFilter()
-  const filteredByCatagory = filterByCategory(products, filterState.catagoryName);
-  const filteredByRating = filterByRating(filteredByCatagory, filterState.inputRating);
-  const filteredByPrice = filterByPrice(filteredByRating, filterState.inputPrice)
-  const sortedBy = sortBy(filteredByPrice, filterState.inputSort)
-  
+  const { filterState, filterDispatch } = useFilter();
+  useEffect(() => {
+    const getData = async () => {
+      await axios
+        .get("/api/products")
+        .then((response) => {
+          filterDispatch({
+            type: "INITIAL_PRODUCTS",
+            payload: response.data.products,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    getData();
+  }, [filterDispatch]);
+  const filteredByCatagory = filterByCategory(
+    filterState.products,
+    filterState.catagoryName
+  );
+  const filteredByRating = filterByRating(
+    filteredByCatagory,
+    filterState.inputRating
+  );
+  const filteredByPrice = filterByPrice(
+    filteredByRating,
+    filterState.inputPrice
+  );
+  const sortedBy = sortBy(filteredByPrice, filterState.inputSort);
 
   return (
-    <main>
-      <FiltersPanel />
-      <div className="main-content my-2" id="main-content-products">
-        {sortedBy.map(
-          ({
-            _id,
-            catagoryName,
-            title,
-            price,
-            inStock,
-            isFavourite,
-            prodImg,
-            rating,
-          }) => {
-            return (
-              <ProductCard
-                key={_id}
-                id={_id}
-                catagoryName={catagoryName}
-                title={title}
-                price={price}
-                inStock={inStock}
-                isFavourite={isFavourite}
-                rating={rating}
-              />
-            );
-          }
-        )}
-      </div>
-    </main>
+    <>
+      <input
+        type="search"
+        className="input w-100per m-auto flex-center-center"
+        placeholder="Search LightsOut"
+        id="search-mobile"
+      />
+
+      <main>
+        <FiltersPanel />
+        <div className="main-content my-2" id="main-content-products">
+          {sortedBy.map((item) => {
+            return <ProductCard key={item._id} item={item} />;
+          })}
+        </div>
+      </main>
+    </>
   );
 }
 
