@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import { products } from "../../backend/db/products";
 import {
   filterByCategory,
   filterByPrice,
@@ -8,7 +7,7 @@ import {
   sortBy,
 } from "../../utils";
 import { FiltersPanel, ProductCard } from "../../components";
-import { useFilter, useCart } from "../../contexts";
+import { useFilter } from "../../contexts";
 
 function Products() {
   const { filterState, filterDispatch } = useFilter();

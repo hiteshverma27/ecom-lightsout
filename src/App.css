@@ -194,3 +194,8 @@ main {
 .wishlist-icon-red {
   color: var(--red);
 }
+
+.badge {
+  height: 70%;
+  width: 70%;
+}
