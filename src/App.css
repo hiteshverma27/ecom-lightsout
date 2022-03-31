@@ -1,9 +1,3 @@
-/* @import url("https://lightsout-store.netlify.app/styles/login.css");
-@import url("https://lightsout-store.netlify.app/style.css");
-@import url("https://lightsout-store.netlify.app/styles/product.css");
-@import url("https://lightsout-store.netlify.app/styles/wishlist.css");
-@import url("https://lightsout-store.netlify.app/styles/cart-management.css"); */
-
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 /* *************** Orca UI ****************** */
@@ -92,7 +86,7 @@ a:hover {
 
 /* *********** Media queries for mobile ************* */
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 76.8em) {
   #nav {
     width: 100%;
     padding: 1rem;
@@ -151,7 +145,7 @@ a:hover {
   backdrop-filter: blur(5px);
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 42.5em) {
   .login-div {
     width: 90%;
     height: max-content;

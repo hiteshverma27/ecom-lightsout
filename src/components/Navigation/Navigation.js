@@ -14,7 +14,7 @@ function Navigation() {
       </Link>
       <ul className="flex-space_between-center" id="nav-icons">
         <li className="mx-2">
-          <Link to={"/"} href="/Pages/login.html">
+          <Link to={"/"}>
             <button className="btn-primary-confirm">Login</button>
           </Link>
         </li>
@@ -31,7 +31,7 @@ function Navigation() {
           </Link>
         </li>
         <li className="mx-2">
-          <Link to={"/"} href="/Pages/wishlist.html">
+          <Link to={"/"}>
             <button className="badge-btn">
               <span className="material-icons-outlined icon-s3 flex-center-center">
                 favorite_border
@@ -41,7 +41,7 @@ function Navigation() {
           </Link>
         </li>
         <li className="mx-2">
-          <Link to={"/"} href="/Pages/login.html">
+          <Link to={"/"}>
             <button className="badge-btn">
               <span className="material-icons-outlined icon-s3 flex-center-center">
                 account_circle

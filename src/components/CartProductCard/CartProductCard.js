@@ -1,7 +1,6 @@
 import { useCart } from "../../contexts";
 
 function CartProductCard({ item }) {
-  console.log(item);
   const { _id, catagoryName, title, price, qty } = item;
   const { cartDispatch } = useCart();
   return (
