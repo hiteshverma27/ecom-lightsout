@@ -1,20 +1,32 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import { useCart } from "../../contexts";
 
 function ProductCard({ item }) {
   const { cartDispatch } = useCart();
   const { _id, catagoryName, title, price, inStock, isFavourite, rating } =
     item;
+  const location = useLocation();
   return (
     <div key={_id}>
       <div className="card-v">
         <span className="card-v-badge">
-          {isFavourite ? (
-            <span className="material-icons-outlined icon-s3 card-badge-icon color-red">
+          {location.pathname === "/wishlist" ? (
+            <span
+              onClick={() =>
+                cartDispatch({ type: "REMOVE_FROM_WISHLIST", payload: item })
+              }
+              className="material-icons-outlined icon-s3 card-badge-icon color-red"
+            >
               favorite
             </span>
           ) : (
-            <span className="material-icons-outlined icon-s3 card-badge-icon">
+            <span
+              onClick={() => {
+                return cartDispatch({ type: "ADD_TO_WISHLIST", payload: item });
+              }}
+              className="material-icons-outlined icon-s3 card-badge-icon"
+            >
               favorite_border
             </span>
           )}
@@ -44,12 +56,16 @@ function ProductCard({ item }) {
         {inStock ? (
           <button
             className="btn-primary-confirm"
-            onClick={() => cartDispatch({ type: "ADD_TO_CART", payload: item })}
+            onClick={() =>
+              location.pathname === "/wishlist"
+                ? cartDispatch({ type: "MOVE_TO_CART", payload: item })
+                : cartDispatch({ type: "ADD_TO_CART", payload: item })
+            }
           >
             <span className="material-icons-outlined icon-s3">
               shopping_cart
             </span>{" "}
-            Add to cart
+            {location.pathname === "/wishlist" ? "Move to Cart" : "Add to cart"}
           </button>
         ) : (
           <button className="btn-primary-confirm">
