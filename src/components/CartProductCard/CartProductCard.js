@@ -1,7 +1,6 @@
 import { useCart } from "../../contexts";
 
 function CartProductCard({ item }) {
-  console.log(item);
   const { _id, catagoryName, title, price, qty } = item;
   const { cartDispatch } = useCart();
   return (
@@ -57,7 +56,12 @@ function CartProductCard({ item }) {
             Remove
           </button>
         </div>
-        <button className="my-1 btn-secondary-grey">
+        <button
+          className="my-1 btn-secondary-grey"
+          onClick={() =>
+            cartDispatch({ type: "ADD_TO_WISHLIST", payload: item })
+          }
+        >
           <span className="material-icons icon-s3">favorite_border</span>
           Move to wishlist
         </button>

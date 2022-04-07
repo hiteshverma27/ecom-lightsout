@@ -93,7 +93,7 @@ export const products = [
     title: "Falg",
     price: 6000,
     inStock: true,
-    isFavourite: true,
+    isFavourite: false,
     rating: 5,
   },
   {
@@ -111,7 +111,7 @@ export const products = [
     title: "Psotefefeeer",
     price: 3000,
     inStock: false,
-    isFavourite: true,
+    isFavourite: false,
     rating: 2,
   },
   {
@@ -138,7 +138,7 @@ export const products = [
     title: "Psotefefeeer",
     price: 8000,
     inStock: false,
-    isFavourite: true,
+    isFavourite: false,
     rating: 5,
   },
   {
@@ -156,7 +156,7 @@ export const products = [
     title: "Psoteeer",
     price: 600,
     inStock: false,
-    isFavourite: true,
+    isFavourite: false,
     rating: 2,
   },
   {
@@ -174,7 +174,7 @@ export const products = [
     title: "Psoteeer",
     price: 2000,
     inStock: false,
-    isFavourite: true,
+    isFavourite: false,
     rating: 4,
   },
   {
@@ -192,7 +192,7 @@ export const products = [
     title: "Psoter",
     price: 3000,
     inStock: true,
-    isFavourite: true,
+    isFavourite: false,
     rating: 6,
   },
   {
