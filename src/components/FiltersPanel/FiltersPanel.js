@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useFilter } from "../../contexts";
+import axios from "axios"
 
 function FiltersPanel() {
   const { filterState, filterDispatch } = useFilter();
+  const [products, setProducts] = React.useState([]);
+  useEffect(() => {
+    const getData = async () => {
+      await axios
+        .get("/api/products")
+        .then((response) => {
+          setProducts(response.data.products);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    getData();
+  }, [filterDispatch]);
   return (
     <main>
       <div className="filter my-2">
@@ -11,7 +26,13 @@ function FiltersPanel() {
           <h3>
             <button
               className="text-underline"
-              onClick={() => filterDispatch({ type: "CLEAR_ALL" })}
+              onClick={() => {
+                filterDispatch({ type: "CLEAR_ALL" });
+                filterDispatch({
+                  type: "INITIAL_PRODUCTS",
+                  payload: products,
+                })
+              }}
             >
               Clear all
             </button>
